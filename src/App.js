@@ -12,26 +12,42 @@ export default class App extends Component {
     this.SearchTermSubmit = this.SearchTermSubmit.bind(this);
     this.selectedVideo = this.selectedVideo.bind(this);
   }
+
+  componentDidMount(){
+    this.SearchTermSubmit('pinky and the brain');
+    console.log('mounted!!!')
+  }
   async SearchTermSubmit(term){
    const response =  await API.get("/search",{
       params: {
         q:term 
       }
     });
-    this.setState({videos:response.data.items});
+    this.setState({
+      videos:response.data.items,
+      selectedVideo:response.data.items[0]
+    });
   }
 
   selectedVideo(videoId){
     this.setState({selectedVideo:videoId})
-    console.log(this.state.selectedVideo);
   }
 
   render() {
     return (
     <div className="App">
       <SearchBar formSubmit={this.SearchTermSubmit}></SearchBar>
-      <VideoDisplay videoView={this.state.selectedVideo}></VideoDisplay>
-      <VideoList chosenVideo={this.selectedVideo} videos={this.state.videos}></VideoList>
+    <div className="ui grid">
+      <div className="ui row zen_centering">
+        <div className="nine wide column">
+          <VideoDisplay videoView={this.state.selectedVideo}></VideoDisplay>
+        </div>
+        <div className="six wide column">
+        <VideoList chosenVideo={this.selectedVideo} videos={this.state.videos}></VideoList>
+        </div>
+      </div>
+    </div>
+
     </div>
       
     )

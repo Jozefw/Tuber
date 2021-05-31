@@ -10,7 +10,7 @@ export default class VideoList extends Component {
     
     render() {
         const listedVideos = this.props.videos.map((singleVidItem)=>{
-            return <VideoDetail clickedVideo={this.props.chosenVideo} vid={singleVidItem}></VideoDetail>
+            return <VideoDetail key={singleVidItem.id.videoId} clickedVideo={this.props.chosenVideo} vid={singleVidItem}></VideoDetail>
             
         })
         return (
