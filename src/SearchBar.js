@@ -16,13 +16,10 @@ export default class SearchBar extends Component {
     }
     handleSubmit(evt){
         evt.preventDefault();
-        console.log('submitted');
         this.props.formSubmit(this.state.searchName);
-     
     }
     render() {
-        return (
-            
+        return (      
 
 <div id="cover">
         <form onSubmit={this.handleSubmit}> 
